@@ -6,9 +6,6 @@
     "editor.rulers": [
         120
     ],
-    "nrf-connect.applications": [
-        "${workspaceFolder}"
-    ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
