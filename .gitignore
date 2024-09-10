@@ -3,7 +3,7 @@
 *~
 
 # build
-/build*/
+_build
 
 # clangd
 .cache
