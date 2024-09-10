@@ -1,8 +1,9 @@
 from enum import Enum
 
-from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import QPixmap, QPainter, QColor, QBrush, QGradient
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush, QColor, QGradient, QPainter, QPixmap
+from PyQt5.QtWidgets import QLabel, QWidget
+
 
 class Segment(int, Enum):
     A_TOP = 0
@@ -13,18 +14,49 @@ class Segment(int, Enum):
     F_TOP_LEFT = 5
     G_MIDDLE = 6
 
+
 SEGMENT_MAP = {
-    0: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.E_BOTTOM_LEFT, Segment.F_TOP_LEFT],
+    0: [
+        Segment.A_TOP,
+        Segment.B_TOP_RIGHT,
+        Segment.C_BOTTOM_RIGHT,
+        Segment.D_BOTTOM,
+        Segment.E_BOTTOM_LEFT,
+        Segment.F_TOP_LEFT,
+    ],
     1: [Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT],
     2: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.D_BOTTOM, Segment.E_BOTTOM_LEFT, Segment.G_MIDDLE],
     3: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.G_MIDDLE],
     4: [Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT, Segment.F_TOP_LEFT, Segment.G_MIDDLE],
     5: [Segment.A_TOP, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.F_TOP_LEFT, Segment.G_MIDDLE],
-    6: [Segment.A_TOP, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.E_BOTTOM_LEFT, Segment.F_TOP_LEFT, Segment.G_MIDDLE],
+    6: [
+        Segment.A_TOP,
+        Segment.C_BOTTOM_RIGHT,
+        Segment.D_BOTTOM,
+        Segment.E_BOTTOM_LEFT,
+        Segment.F_TOP_LEFT,
+        Segment.G_MIDDLE,
+    ],
     7: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT],
-    8: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.E_BOTTOM_LEFT, Segment.F_TOP_LEFT, Segment.G_MIDDLE],
-    9: [Segment.A_TOP, Segment.B_TOP_RIGHT, Segment.C_BOTTOM_RIGHT, Segment.D_BOTTOM, Segment.F_TOP_LEFT, Segment.G_MIDDLE],
+    8: [
+        Segment.A_TOP,
+        Segment.B_TOP_RIGHT,
+        Segment.C_BOTTOM_RIGHT,
+        Segment.D_BOTTOM,
+        Segment.E_BOTTOM_LEFT,
+        Segment.F_TOP_LEFT,
+        Segment.G_MIDDLE,
+    ],
+    9: [
+        Segment.A_TOP,
+        Segment.B_TOP_RIGHT,
+        Segment.C_BOTTOM_RIGHT,
+        Segment.D_BOTTOM,
+        Segment.F_TOP_LEFT,
+        Segment.G_MIDDLE,
+    ],
 }
+
 
 class SevenSegmentDisplay(QWidget):
 
@@ -40,7 +72,10 @@ class SevenSegmentDisplay(QWidget):
         vertical_segment_width = vertical_segment.width()
         spacing = 10
 
-        self.setFixedSize((2 * spacing) + horizontal_segment_width + vertical_segment_width, (4 * spacing) + horizontal_segment_height + (2 * vertical_segment_height))
+        self.setFixedSize(
+            (2 * spacing) + horizontal_segment_width + vertical_segment_width,
+            (4 * spacing) + horizontal_segment_height + (2 * vertical_segment_height),
+        )
 
         self.segment_labels[Segment.A_TOP].setPixmap(horizontal_segment)
         self.segment_labels[Segment.B_TOP_RIGHT].setPixmap(vertical_segment)
@@ -51,12 +86,23 @@ class SevenSegmentDisplay(QWidget):
         self.segment_labels[Segment.G_MIDDLE].setPixmap(horizontal_segment)
 
         self.segment_labels[Segment.A_TOP].move(spacing + int(0.5 * vertical_segment_width), 0)
-        self.segment_labels[Segment.B_TOP_RIGHT].move((2 * spacing) + horizontal_segment_width, spacing + int(0.5 * horizontal_segment_height))
-        self.segment_labels[Segment.C_BOTTOM_RIGHT].move((2 * spacing) + horizontal_segment_width, (3 * spacing) + int(0.5 * horizontal_segment_height) + vertical_segment_height)
-        self.segment_labels[Segment.D_BOTTOM].move(spacing + int(0.5 * vertical_segment_width), (4 * spacing) + (2 * vertical_segment_height))
-        self.segment_labels[Segment.E_BOTTOM_LEFT].move(0, (3 * spacing) + int(0.5 * horizontal_segment_height) + vertical_segment_height)
+        self.segment_labels[Segment.B_TOP_RIGHT].move(
+            (2 * spacing) + horizontal_segment_width, spacing + int(0.5 * horizontal_segment_height)
+        )
+        self.segment_labels[Segment.C_BOTTOM_RIGHT].move(
+            (2 * spacing) + horizontal_segment_width,
+            (3 * spacing) + int(0.5 * horizontal_segment_height) + vertical_segment_height,
+        )
+        self.segment_labels[Segment.D_BOTTOM].move(
+            spacing + int(0.5 * vertical_segment_width), (4 * spacing) + (2 * vertical_segment_height)
+        )
+        self.segment_labels[Segment.E_BOTTOM_LEFT].move(
+            0, (3 * spacing) + int(0.5 * horizontal_segment_height) + vertical_segment_height
+        )
         self.segment_labels[Segment.F_TOP_LEFT].move(0, spacing + int(0.5 * horizontal_segment_height))
-        self.segment_labels[Segment.G_MIDDLE].move(spacing + int(0.5 * vertical_segment_width), (2 * spacing) + vertical_segment_height)
+        self.segment_labels[Segment.G_MIDDLE].move(
+            spacing + int(0.5 * vertical_segment_width), (2 * spacing) + vertical_segment_height
+        )
 
     def update_colors(self, segment: Segment, color: QBrush | QColor | Qt.GlobalColor | QGradient):
         label = self.segment_labels[segment]

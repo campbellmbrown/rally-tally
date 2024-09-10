@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": false,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
@@ -7,5 +8,21 @@
     ],
     "nrf-connect.applications": [
         "${workspaceFolder}"
-    ]
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "never"
+        }
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "pylint.args": [
+        "--disable=missing-function-docstring",
+        "--max-line-length=120"
+    ],
+    "black-formatter.args": ["--line-length", "120"],
+    "isort.args": ["--profile", "black", "--src", "app"],
+    "ruff.organizeImports": false,
 }
