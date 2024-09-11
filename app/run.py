@@ -1,36 +1,27 @@
 import sys
 
-from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 
-from seven_segment_display import SevenSegmentDisplay
+from score_section import ScoreSection
 
 
-class SegmentDisplay(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("7-Segment Display")
-        self.seven_segment_display = SevenSegmentDisplay()
+        self.setWindowTitle("Rally Tally")
+
+        score_section = ScoreSection()
+
         layout = QVBoxLayout()
-        layout.addWidget(self.seven_segment_display)
-        self.setLayout(layout)
+        layout.addWidget(score_section)
 
-        self.setStyleSheet("background-color: black;")
-
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_value)
-        self.timer.start(500)
-        self.number = 0
-
-    def update_value(self):
-        self.seven_segment_display.set_value(self.number)
-        self.number += 1
-        if self.number > 9:
-            self.number = 0
+        cental_widget = QWidget()
+        cental_widget.setLayout(layout)
+        self.setCentralWidget(cental_widget)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = SegmentDisplay()
+    window = MainWindow()
     window.show()
     sys.exit(app.exec_())
