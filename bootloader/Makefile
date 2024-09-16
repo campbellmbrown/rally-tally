@@ -2,11 +2,11 @@ PROJECT_NAME     := secure_bootloader_ble_s140_pca10056
 TARGETS          := nrf52840_xxaa_s140
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := ../../../../..
-PROJ_DIR := ../..
+SDK_ROOT := ../nrf5_sdk
+PROJ_DIR := .
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa_s140.out: \
-  LINKER_SCRIPT  := secure_bootloader_gcc_nrf52.ld
+  LINKER_SCRIPT  := pca10056_s140_ble/armgcc/secure_bootloader_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -49,8 +49,8 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_hash.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_init.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c \
-  $(PROJ_DIR)/../dfu_public_key.c \
-  $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/src/dfu_public_key.c \
+  $(PROJ_DIR)/src/main.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
   $(SDK_ROOT)/components/libraries/svc/nrf_svc_handler.c \
@@ -119,7 +119,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/bootloader \
   $(SDK_ROOT)/components/softdevice/s140/headers \
   $(SDK_ROOT)/components/libraries/crypto \
-  ../config \
+  $(PROJ_DIR)/pca10056_s140_ble/config \
   $(SDK_ROOT)/components/libraries/crypto/backend/optiga \
   $(SDK_ROOT)/components/libraries/scheduler \
   $(SDK_ROOT)/external/nrf_cc310_bl/include \
@@ -128,7 +128,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
-  $(PROJ_DIR) \
+  $(PROJ_DIR)/src \
   $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
