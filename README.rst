@@ -42,6 +42,13 @@ Flash the softdevice, bootloader, and bootloader settings with:
     nrfjprog -f nrf52 --program bootloader_merged.hex --sectorerase
     nrfjprog -f nrf52 --reset
 
+Generate DFU Package
+--------------------
+
+.. code-block:: bash
+
+    nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application peripheral/_build/nrf52840_xxaa.hex --key-file priv.pem app_dfu_package.zip
+
 Key Generation
 --------------
 
